@@ -1,0 +1,186 @@
+openapi: 3.0.3
+
+info:
+  title: To Do List API
+  description: API for managing To Do List
+  version: 1.0.0
+
+tags:
+  - name: To Do List CRUD
+    description: To Do List CRUD API
+
+paths:
+  /to-do-list:
+    post:
+      tags:
+        - To Do List CRUD
+      summary: Create To Do List
+      description: Create a To Do List.
+      operationId: createToDoList
+      requestBody:
+        description: The To Do List to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToDoList'
+      responses:
+        '201':
+          description: To Do List successfully created.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    get:
+      tags:
+        - To Do List CRUD
+      summary: Find To Do List
+      description: Get a paginated list of To Do List.
+      operationId: findToDoList
+      parameters:
+        - $ref: '#/components/parameters/PageNum'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: The paginated list of To Do List.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ToDoList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+  /to-do-list/{id}:
+    get:
+      summary: Find To Do List
+      description: Get an To Do List based on a given ID.
+      operationId: findToDoListById
+      tags:
+        - To Do List CRUD
+      parameters:
+        - $ref: '#/components/parameters/ToDoListId'
+      responses:
+        '200':
+          description: The To Do List requested.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToDoList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    put:
+      tags:
+        - To Do List CRUD
+      summary: Update To Do List
+      description: Update an existing To Do List based on a given ID.
+      operationId: updateToDoList
+      parameters:
+        - $ref: '#/components/parameters/ToDoListId'
+      requestBody:
+        description: The updated To Do List.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToDoList'
+      responses:
+        '204':
+          description: To Do List successfully updated.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+    delete:
+      tags:
+        - To Do List CRUD
+      summary: Delete  To Do List
+      description: Delete an existing To Do List based on a given ID.
+      operationId: deleteToDoList
+      parameters:
+        - $ref: '#/components/parameters/ToDoListId'
+      responses:
+        '204':
+          description: To Do List successfully deleted.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
+components:
+  parameters:
+    PageNum:
+      name: pageNum
+      description: The number of the page to get.
+      in: query
+      schema:
+        type: integer
+    PageSize:
+      name: pageSize
+      description: The size of the page to get.
+      in: query
+      schema:
+        type: integer
+    ToDoListId:
+      name: id
+      description: The ID of the To Do List to request.
+      in: path
+      required: true
+      schema:
+        type: integer
+        format: int64
+
+  responses:
+    BadRequest:
+      description: Bad Request
+    Unauthorized:
+      description: Unauthorized
+    NotFound:
+      description: Not Found
+    InternalServerError:
+      description: Internal Server Error
+
+  schemas:
+    ToDoList:
+      type: object
+      properties:
+        id:
+          type: number
+          description: The To Do List's id.
+        code:
+          type: string
+          description: The To Do List's code.
+          x-field-extra-annotation: |
+            @NotNull(message="Property organization cannot be empty")
+            @Size(min = 1, max = 50,message = "Maximum length property organization: 50 characters")
+        description:
+          type: string
+          description: The To Do List's description.
+          x-field-extra-annotation: |
+            @NotNull(message="Property opportunity cannot be empty")
+            @Size(min = 1, max = 150,message = "Maximum length property opportunity: 150 characters")

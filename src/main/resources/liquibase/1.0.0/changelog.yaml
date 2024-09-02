@@ -1,0 +1,19 @@
+databaseChangeLog:
+  - changeSet:
+      author: esis
+      id: esis_to_do_list_schema
+      sqlFile:
+        path: scripts/create_schema.sql
+        relativeToChangelogFile: true
+  - changeSet:
+      author: esis
+      id: esis_to_do_list_user
+      sqlFile:
+        path: scripts/create_user.sql
+        relativeToChangelogFile: true
+  - changeSet:
+      author: esis
+      id: esis_to_do_list_to_do_list
+      sqlFile:
+        path: scripts/create_to_do_list.sql
+        relativeToChangelogFile: true
