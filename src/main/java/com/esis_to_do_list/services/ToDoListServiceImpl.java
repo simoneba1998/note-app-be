@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.esis_to_do_list.repositories.ToDoListRepository;
 import com.esis_to_do_list.mappers.ToDoListMapper;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -58,6 +59,7 @@ public class ToDoListServiceImpl implements ToDoListService{
 
         currCrm.setCode(crm.getCode());
         currCrm.setDescription(crm.getDescription());
+        currCrm.setUpdateDate(LocalDateTime.now());
 
         this.toDoListRepository.save(currCrm);
     }

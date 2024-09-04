@@ -3,10 +3,10 @@ spring:
     name: esis-to-do-list
 
   datasource:
-    url: jdbc:postgresql://localhost:5435/esis-to-do-list
+    url: jdbc:postgresql://localhost:5435/esis-to-do-list_db
     driver-class-name: org.postgresql.Driver
-    username: to_do_list_user
-    password: to_do_list
+    username: admin
+    password: admin
 
   liquibase:
     change-log: classpath:liquibase/changelog-master.yaml
