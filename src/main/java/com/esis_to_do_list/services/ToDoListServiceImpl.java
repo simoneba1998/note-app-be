@@ -72,4 +72,15 @@ public class ToDoListServiceImpl implements ToDoListService{
             throw new ToDoListotFoundException("not found " + id);
         }
     }
+
+    @Override
+    public List<ToDoListDTO> searchByCode(final String search) {
+        if (search != null && !search.trim().isEmpty()) {
+            final List<ToDoList> listSearch = toDoListRepository.findByCodeContainingIgnoreCase(search);
+            return this.toDoListMapper.mapEntitiesToDTOs(listSearch);
+        } else{
+            final List<ToDoList> listSearch =  toDoListRepository.findByCodeContainingIgnoreCase("");
+            return this.toDoListMapper.mapEntitiesToDTOs(listSearch);
+        }
+    }
 }
