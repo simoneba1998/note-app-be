@@ -5,6 +5,14 @@ Avvio attraverso la creazione di un container DOCKER ,comando:
 
 docker run -d --name esis-to-do-list -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=esis-to-do-list_db -p 5435:5432 postgres
 
+ultimo comando lanciato (23/01/2025) utile per ricreazione container docker:
+
+docker run -d --name esis-to-do-list -e POSTGRES_PASSWORD=admin -e POSTGRES_USER=admin -e POSTGRES_DB=esis-to-do-list_db -p 5435:5432 postgres
+
+
+
+
+
 
 
 Avvio del Progetto Spring Boot da Intellij IDE:
